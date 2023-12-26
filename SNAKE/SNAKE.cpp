@@ -20,6 +20,14 @@ int legth = 2;
 bool cake = 0;
 bool over = 0;
 char pre_key, key;
+void HideCursor()
+{
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO CursorInfo;
+	GetConsoleCursorInfo(handle, &CursorInfo);//获取控制台光标信息
+	CursorInfo.bVisible = false; //隐藏控制台光标
+	SetConsoleCursorInfo(handle, &CursorInfo);//设置控制台光标状态
+}
 
 void gotoxy(short x, short y) {
 	COORD coord = { x, y };
@@ -31,7 +39,7 @@ void gotoxy(short x, short y) {
 }
 
 int print() {
-	system("cls");
+	
 	
 	for (size_t y = 0; y < height; y++)
 	{
@@ -49,7 +57,8 @@ int print() {
 				printf("o");
 				break;
 			case(0):
-				
+				gotoxy(x, y);
+				printf(" ");
 				break;
 			case(3):
 				gotoxy(x, y);
@@ -255,7 +264,7 @@ int INIT() {
 	return 0;
 }
 int main() {
-
+	HideCursor();
 	INIT();
 	while (!over) {
 		move();

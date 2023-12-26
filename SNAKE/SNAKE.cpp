@@ -20,6 +20,7 @@ int legth = 2;
 bool cake = 0;
 bool over = 0;
 char pre_key, key;
+
 void gotoxy(short x, short y) {
 	COORD coord = { x, y };
 	//COORD是Windows API中定义的一种结构体类型，表示控制台屏幕上的坐标。
@@ -28,6 +29,7 @@ void gotoxy(short x, short y) {
 	//GetStdHandle(STD_OUTPUT_HANDLE); 获取控制台输出句柄
 	//然后用SetConsoleCursorPosition设置控制台(cmd)光标位置
 }
+
 int print() {
 	system("cls");
 	
@@ -35,6 +37,7 @@ int print() {
 	{
 		for (size_t x = 0; x < weight; x++)
 		{
+			
 			switch (map[y][x])
 			{
 			case(1):
@@ -58,8 +61,12 @@ int print() {
 				break;
 			default:
 				break;
+			
 			}
 			
+		}
+		if (y == height / 2) {
+			printf("score:%d", score);
 		}
 		cout << " " << endl;
 	}
@@ -95,6 +102,7 @@ int fresh() {
 		{
 			if (sx == cx && sy == cy) {
 				spwancake();
+				score++;
 				legth++;
 			}
 			if (y == 0 || y == height - 1) {
@@ -164,7 +172,7 @@ int lifeadd() {
 	return 0;
 }
 int remove() {
-	if (sx <= 1) {
+	if (sx <= 0) {
 		sx = weight - 2;
 	}
 	if (sx >= weight-1) {
@@ -242,7 +250,7 @@ int INIT() {
 	life[height /2][(weight / 2)] = legth;
 	map[height /2][(weight / 2)+1] = 2;
 	life[height/2][(weight / 2) + 1] = 1;
-	
+	key = 75;
 	spwancake();
 	return 0;
 }
@@ -261,7 +269,9 @@ int main() {
 			spwancake();
 		}
 	}
-	
-	
+	system("cls");
+	gotoxy(40, 10);
+	printf("Score:%d", score);
+	gotoxy(40, 30);
 	return 0;
 }
